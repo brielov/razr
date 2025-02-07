@@ -1,0 +1,10 @@
+{
+  "name": "razr",
+  "workspaces": [
+    "packages/*"
+  ],
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "@razr/formdata",
+  "module": "index.ts",
+  "type": "module"
+}
