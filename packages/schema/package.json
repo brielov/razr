@@ -1,0 +1,9 @@
+{
+  "name": "@razr/schema",
+  "module": "index.ts",
+  "type": "module",
+  "dependencies": {
+    "@razr/utils": "workspace:*",
+    "@standard-schema/spec": "npm:@jsr/standard-schema__spec"
+  }
+}

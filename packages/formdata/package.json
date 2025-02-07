@@ -1,5 +1,8 @@
 {
   "name": "@razr/formdata",
   "module": "index.ts",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@razr/utils": "workspace:*"
+  }
 }

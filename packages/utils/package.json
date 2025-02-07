@@ -1,0 +1,5 @@
+{
+  "name": "@razr/utils",
+  "module": "index.ts",
+  "type": "module"
+}
