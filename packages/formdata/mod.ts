@@ -102,6 +102,8 @@ export interface DecodeObject {
  */
 export type DecodeArray = DecodeValue[];
 
+export type EmptyStringStrategy = "set null" | "set undefined" | "preserve";
+
 /**
  * Decodes a `FormData` object into a nested JavaScript object.
  *
@@ -116,7 +118,7 @@ export type DecodeArray = DecodeValue[];
  */
 export function decode(
   formData: FormData,
-  options: { emptyString?: "set null" | "set undefined" | "preserve" } = {},
+  options: { emptyString?: EmptyStringStrategy } = {},
 ): DecodeObject {
   const { emptyString = "preserve" } = options; // Default behavior for empty strings.
   const result = Object.create(null) as DecodeObject; // Root object for decoding.

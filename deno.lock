@@ -39,6 +39,11 @@
   },
   "workspace": {
     "members": {
+      "packages/http": {
+        "dependencies": [
+          "jsr:@standard-schema/spec@1"
+        ]
+      },
       "packages/schema": {
         "dependencies": [
           "jsr:@standard-schema/spec@1"

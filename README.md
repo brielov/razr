@@ -32,6 +32,9 @@ in **Node.js**, **Deno**, **Bun**, **Cloudflare Workers**, and **browsers**.
 - **`@razr/crypto`**: Provides secure password hashing, encryption, and key
   derivation using the Web Crypto API, ensuring consistent cryptographic
   operations everywhere.
+- **`@razr/http`**: A lightweight, flexible HTTP client built on the Fetch API,
+  featuring retry logic, schema validation, and cross-platform compatibility for
+  Node.js, Deno, Bun, Cloudflare Workers, and browsers.
 
 #### **Why Razr?**
 
