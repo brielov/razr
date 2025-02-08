@@ -2,5 +2,8 @@
   "name": "@razr/schema",
   "version": "0.0.0",
   "exports": "./mod.ts",
-  "license": "MIT"
+  "license": "MIT",
+  "imports": {
+    "@standard-schema/spec": "jsr:@standard-schema/spec@^1.0.0"
+  }
 }

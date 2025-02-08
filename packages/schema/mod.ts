@@ -1,4 +1,4 @@
-import type { StandardSchemaV1 } from "jsr:@standard-schema/spec";
+import type { StandardSchemaV1 } from "@standard-schema/spec";
 import { isObject } from "../utils/mod.ts";
 
 /**
@@ -116,7 +116,7 @@ function prependKeyToIssues(
  * @param message - The error message to return if validation fails.
  * @returns A schema that validates string inputs.
  */
-export function string(message = "Expected string") {
+export function string(message = "Expected string"): Schema<string> {
   return createSchema<string>((value) => {
     if ("string" === typeof value) return { value };
     return { issues: [{ message }] };
@@ -128,7 +128,7 @@ export function string(message = "Expected string") {
  * @param message - The error message to return if validation fails.
  * @returns A schema that validates number inputs.
  */
-export function number(message = "Expected number") {
+export function number(message = "Expected number"): Schema<number> {
   return createSchema<number>((value) => {
     if ("number" === typeof value && Number.isFinite(value)) return { value };
     return { issues: [{ message }] };
@@ -140,7 +140,7 @@ export function number(message = "Expected number") {
  * @param message - The error message to return if validation fails.
  * @returns A schema that validates boolean inputs.
  */
-export function boolean(message = "Expected boolean") {
+export function boolean(message = "Expected boolean"): Schema<boolean> {
   return createSchema<boolean>((value) => {
     if ("boolean" === typeof value) return { value };
     return { issues: [{ message }] };
@@ -154,7 +154,10 @@ export function boolean(message = "Expected boolean") {
  * @param message - The error message to return if validation fails.
  * @returns A schema that validates array inputs.
  */
-export function array<T extends Schema>(schema: T, message = "Expected array") {
+export function array<T extends Schema>(
+  schema: T,
+  message = "Expected array"
+): Schema<InferOutput<T>[]> {
   return createSchema<InferOutput<T>[]>((input) => {
     if (!Array.isArray(input)) return { issues: [{ message }] };
     const len = input.length;
@@ -228,7 +231,9 @@ export function object<T extends RawShape>(
  * @param schema - The schema used to validate the input if it is not `null` or `undefined`.
  * @returns A schema that validates inputs that can be `null`, `undefined`, or match the provided schema.
  */
-export function maybe<T extends Schema>(schema: T) {
+export function maybe<T extends Schema>(
+  schema: T
+): Schema<InferOutput<T> | undefined> {
   return createSchema<InferOutput<T> | undefined>((value) => {
     if (null === value || undefined === value) return { value: undefined };
     return schema.safeParse(value);
@@ -245,7 +250,7 @@ export function maybe<T extends Schema>(schema: T) {
 export function defaulted<T extends Schema>(
   schema: T,
   defaultValue: InferOutput<T>
-) {
+): Schema<InferOutput<T>> {
   return createSchema<InferOutput<T>>((value) => {
     if (null === value || undefined === value) return { value: defaultValue };
     return schema.safeParse(value);
