@@ -268,3 +268,20 @@ export function defaulted<T extends Schema>(
     return schema.safeParse(value);
   });
 }
+
+/**
+ * Creates a schema that validates if the input matches a literal value.
+ * @template T - The literal type (`string`, `number`, `boolean`, or `null`).
+ * @param {T} constant - The literal value to validate against.
+ * @param {string} [message="Expected a literal value"] - The error message to return if validation fails.
+ * @returns {Schema<T>} A schema that validates inputs matching the literal value.
+ */
+export function literal<const T extends string | number | boolean | null>(
+  constant: T,
+  message: string = "Expected literal value",
+): Schema<T> {
+  return createSchema<T>((value) => {
+    if (value === constant) return { value: constant };
+    return { issues: [{ message }] };
+  });
+}

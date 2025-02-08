@@ -4,6 +4,7 @@ import {
   array,
   boolean,
   defaulted,
+  literal,
   maybe,
   number,
   object,
@@ -149,5 +150,55 @@ describe("defaulted()", () => {
     const schema = defaulted(number(), 42);
     const result = schema.safeParse("not a number");
     expect(result.issues).toEqual([{ message: "Expected number" }]);
+  });
+});
+
+describe("literal()", () => {
+  it("should validate matching literal values", () => {
+    const schema = literal("test", "Expected literal");
+    const result = schema.safeParse("test");
+    expect(result).toEqual({ value: "test" });
+  });
+
+  it("should reject non-matching literal values", () => {
+    const schema = literal("test", "Expected literal");
+    const result = schema.safeParse("not-test");
+    expect(result.issues).toEqual([{ message: "Expected literal" }]);
+  });
+
+  it("should validate matching number literal values", () => {
+    const schema = literal(42, "Expected literal");
+    const result = schema.safeParse(42);
+    expect(result).toEqual({ value: 42 });
+  });
+
+  it("should reject non-matching number literal values", () => {
+    const schema = literal(42, "Expected literal");
+    const result = schema.safeParse(100);
+    expect(result.issues).toEqual([{ message: "Expected literal" }]);
+  });
+
+  it("should validate matching boolean literal values", () => {
+    const schema = literal(true, "Expected literal");
+    const result = schema.safeParse(true);
+    expect(result).toEqual({ value: true });
+  });
+
+  it("should reject non-matching boolean literal values", () => {
+    const schema = literal(true, "Expected literal");
+    const result = schema.safeParse(false);
+    expect(result.issues).toEqual([{ message: "Expected literal" }]);
+  });
+
+  it("should validate null literal", () => {
+    const schema = literal(null, "Expected literal");
+    const result = schema.safeParse(null);
+    expect(result).toEqual({ value: null });
+  });
+
+  it("should reject non-null literal", () => {
+    const schema = literal(null, "Expected literal");
+    const result = schema.safeParse("not-null");
+    expect(result.issues).toEqual([{ message: "Expected literal" }]);
   });
 });
