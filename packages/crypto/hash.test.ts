@@ -1,6 +1,7 @@
-import { describe, expect, it } from "bun:test";
-import { hash, verify } from "./hash";
-import { generateSalt } from "./utils";
+import { expect } from "jsr:@std/expect";
+import { describe, it } from "jsr:@std/testing/bdd";
+import { hash, verify } from "./hash.ts";
+import { generateSalt } from "./utils.ts";
 
 describe("hash", () => {
   it("should hash a password with a given salt", async () => {
@@ -11,7 +12,7 @@ describe("hash", () => {
     expect(hashedPassword.length).toBe(32); // 256 bits = 32 bytes
   });
 
-  it("should throw an error if the salt is less than 16 bytes", async () => {
+  it("should throw an error if the salt is less than 16 bytes", () => {
     const password = "mySecurePassword";
     const salt = new Uint8Array(15); // Invalid salt length
     expect(hash(password, salt)).rejects.toThrow(

@@ -1,6 +1,7 @@
-import { describe, expect, it } from "bun:test";
-import { decrypt, encrypt } from "./cipher";
-import { deriveKey, generateSalt } from "./utils";
+import { expect } from "jsr:@std/expect";
+import { describe, it } from "jsr:@std/testing/bdd";
+import { decrypt, encrypt } from "./cipher.ts";
+import { deriveKey, generateSalt } from "./utils.ts";
 
 describe("encrypt and decrypt", () => {
   it("should encrypt and decrypt data correctly", async () => {

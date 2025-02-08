@@ -1,5 +1,5 @@
-import { isObject } from "@razr/utils";
-import type { StandardSchemaV1 } from "@standard-schema/spec";
+import type { StandardSchemaV1 } from "jsr:@standard-schema/spec";
+import { isObject } from "../utils/mod.ts";
 
 /**
  * Represents the result of a schema validation.
