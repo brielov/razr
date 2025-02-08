@@ -107,7 +107,7 @@ function prependKeyToIssues(
 ): Issue[] {
   return issues.map((issue) => ({
     ...issue,
-    path: Array.isArray(issue.path) ? [key, ...issue.path] : undefined,
+    path: Array.isArray(issue.path) ? [key, ...issue.path] : [key],
   }));
 }
 
@@ -116,7 +116,7 @@ function prependKeyToIssues(
  * @param message - The error message to return if validation fails.
  * @returns A schema that validates string inputs.
  */
-export function str(message = "Expected string") {
+export function string(message = "Expected string") {
   return createSchema<string>((value) => {
     if ("string" === typeof value) return { value };
     return { issues: [{ message }] };
@@ -128,7 +128,7 @@ export function str(message = "Expected string") {
  * @param message - The error message to return if validation fails.
  * @returns A schema that validates number inputs.
  */
-export function num(message = "Expected number") {
+export function number(message = "Expected number") {
   return createSchema<number>((value) => {
     if ("number" === typeof value && Number.isFinite(value)) return { value };
     return { issues: [{ message }] };
@@ -140,7 +140,7 @@ export function num(message = "Expected number") {
  * @param message - The error message to return if validation fails.
  * @returns A schema that validates boolean inputs.
  */
-export function bool(message = "Expected boolean") {
+export function boolean(message = "Expected boolean") {
   return createSchema<boolean>((value) => {
     if ("boolean" === typeof value) return { value };
     return { issues: [{ message }] };
@@ -154,7 +154,7 @@ export function bool(message = "Expected boolean") {
  * @param message - The error message to return if validation fails.
  * @returns A schema that validates array inputs.
  */
-export function list<T extends Schema>(schema: T, message = "Expected array") {
+export function array<T extends Schema>(schema: T, message = "Expected array") {
   return createSchema<InferOutput<T>[]>((input) => {
     if (!Array.isArray(input)) return { issues: [{ message }] };
     const len = input.length;
@@ -201,7 +201,7 @@ export interface ObjectSchema<TOutput extends RawShape, TInput = unknown>
  * @param message - The error message to return if validation fails.
  * @returns A schema that validates object inputs.
  */
-export function obj<T extends RawShape>(
+export function object<T extends RawShape>(
   shape: ObjectShape<T>,
   message = "Expected object"
 ): ObjectSchema<T> {
@@ -242,7 +242,10 @@ export function maybe<T extends Schema>(schema: T) {
  * @param defaultValue - The default value to use if the input is `null` or `undefined`.
  * @returns A schema that validates inputs and provides a default value if necessary.
  */
-export function def<T extends Schema>(schema: T, defaultValue: InferOutput<T>) {
+export function defaulted<T extends Schema>(
+  schema: T,
+  defaultValue: InferOutput<T>
+) {
   return createSchema<InferOutput<T>>((value) => {
     if (null === value || undefined === value) return { value: defaultValue };
     return schema.safeParse(value);
