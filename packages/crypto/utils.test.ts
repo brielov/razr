@@ -38,7 +38,7 @@ describe("generateSalt", () => {
 
   it("should throw an error if the length is less than 16 bytes", () => {
     expect(() => generateSalt(15)).toThrow(
-      "Salt length must be at least 16 bytes for security."
+      "Salt length must be at least 16 bytes for security.",
     );
   });
 });

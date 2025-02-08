@@ -36,7 +36,7 @@ describe("encrypt and decrypt", () => {
     const key = await deriveKey(secret, salt);
 
     const data = new TextEncoder().encode("Sensitive data");
-    const { encryptedData, iv } = await encrypt(data, key);
+    const { encryptedData } = await encrypt(data, key);
     const wrongIv = crypto.getRandomValues(new Uint8Array(12)); // Random IV
 
     expect(decrypt(encryptedData, key, wrongIv)).rejects.toThrow();

@@ -61,7 +61,7 @@ export function generateSalt(length: number = 16): Uint8Array {
 export async function deriveKey(
   secret: string,
   salt: Uint8Array,
-  iterations: number = 100000
+  iterations: number = 100000,
 ): Promise<CryptoKey> {
   const encoder = new TextEncoder();
   const secretBuffer = encoder.encode(secret);
@@ -71,7 +71,7 @@ export async function deriveKey(
     secretBuffer,
     { name: "PBKDF2" },
     false,
-    ["deriveKey"]
+    ["deriveKey"],
   );
 
   return crypto.subtle.deriveKey(
@@ -84,6 +84,6 @@ export async function deriveKey(
     keyMaterial,
     { name: "AES-GCM", length: 256 }, // AES-GCM with a 256-bit key
     false, // Key is not extractable
-    ["encrypt", "decrypt"] // Key usages
+    ["encrypt", "decrypt"], // Key usages
   );
 }

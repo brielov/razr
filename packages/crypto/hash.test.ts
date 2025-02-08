@@ -42,9 +42,22 @@ describe("verify", () => {
   it("should return false if the hashed password length does not match", async () => {
     const password = "mySecurePassword";
     const salt = generateSalt();
-    const hashedPassword = await hash(password, salt);
+    const _hashedPassword = await hash(password, salt);
     const invalidHashedPassword = new Uint8Array(31); // Invalid length
     const isVerified = await verify(password, invalidHashedPassword, salt);
+    expect(isVerified).toBe(false);
+  });
+
+  it("should return false if the hashed password contents are tampered", async () => {
+    const password = "mySecurePassword";
+    const salt = generateSalt();
+    const hashedPassword = await hash(password, salt);
+
+    // Tamper with the hashed password
+    const tamperedPassword = new Uint8Array(hashedPassword);
+    tamperedPassword[0] ^= 0xff; // Flip a bit
+
+    const isVerified = await verify(password, tamperedPassword, salt);
     expect(isVerified).toBe(false);
   });
 });

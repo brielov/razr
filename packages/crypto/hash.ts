@@ -16,7 +16,7 @@
 export async function hash(
   password: string,
   salt: Uint8Array,
-  iterations: number = 100000 // Default iterations, configurable for future-proofing
+  iterations: number = 100000, // Default iterations, configurable for future-proofing
 ): Promise<Uint8Array> {
   if (salt.length < 16) {
     throw new Error("Salt must be at least 16 bytes long for security.");
@@ -30,7 +30,7 @@ export async function hash(
     passwordBuffer,
     { name: "PBKDF2" },
     false,
-    ["deriveBits"]
+    ["deriveBits"],
   );
 
   const hashedPassword = await crypto.subtle.deriveBits(
@@ -41,7 +41,7 @@ export async function hash(
       hash: "SHA-256",
     },
     keyMaterial,
-    256 // 256 bits = 32 bytes
+    256, // 256 bits = 32 bytes
   );
 
   return new Uint8Array(hashedPassword);
@@ -67,7 +67,7 @@ export async function verify(
   password: string,
   hashedPassword: Uint8Array,
   salt: Uint8Array,
-  iterations: number = 100000 // Match iterations from the hash function
+  iterations: number = 100000, // Match iterations from the hash function
 ): Promise<boolean> {
   const newHashedPassword = await hash(password, salt, iterations);
 

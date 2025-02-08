@@ -23,6 +23,12 @@ jobs:
         with:
           deno-version: v2.x
 
+      - name: Run linter
+        run: deno lint
+
+      - name: Run formatter
+        run: deno fmt --check
+
       - name: Run tests
         run: deno test
 

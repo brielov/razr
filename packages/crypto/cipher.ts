@@ -14,13 +14,13 @@
  */
 export async function encrypt(
   data: Uint8Array,
-  key: CryptoKey
+  key: CryptoKey,
 ): Promise<{ encryptedData: Uint8Array; iv: Uint8Array }> {
   const iv = crypto.getRandomValues(new Uint8Array(12)); // 96-bit IV for AES-GCM
   const encryptedData = await crypto.subtle.encrypt(
     { name: "AES-GCM", iv },
     key,
-    data
+    data,
   );
 
   return {
@@ -44,12 +44,12 @@ export async function encrypt(
 export async function decrypt(
   encryptedData: Uint8Array,
   key: CryptoKey,
-  iv: Uint8Array
+  iv: Uint8Array,
 ): Promise<Uint8Array> {
   const decryptedData = await crypto.subtle.decrypt(
     { name: "AES-GCM", iv },
     key,
-    encryptedData
+    encryptedData,
   );
 
   return new Uint8Array(decryptedData);
