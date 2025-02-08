@@ -1,4 +1,5 @@
-import { describe, expect, it } from "bun:test";
+import { expect } from "jsr:@std/expect";
+import { describe, it } from "jsr:@std/testing/bdd";
 import {
   array,
   boolean,
@@ -8,7 +9,7 @@ import {
   object,
   SchemaError,
   string,
-} from ".";
+} from "./mod.ts";
 
 describe("string()", () => {
   it("should validate a string input", () => {

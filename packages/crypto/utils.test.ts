@@ -1,5 +1,6 @@
-import { describe, expect, it } from "bun:test";
-import { fromBase64, generateSalt, toBase64 } from "./utils";
+import { expect } from "jsr:@std/expect";
+import { describe, it } from "jsr:@std/testing/bdd";
+import { fromBase64, generateSalt, toBase64 } from "./utils.ts";
 
 describe("toBase64", () => {
   it("should encode a Uint8Array to a Base64 string", () => {

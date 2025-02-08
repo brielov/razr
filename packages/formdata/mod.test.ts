@@ -1,5 +1,6 @@
-import { describe, expect, it } from "bun:test";
-import { decode, encode } from ".";
+import { expect } from "jsr:@std/expect";
+import { describe, it } from "jsr:@std/testing/bdd";
+import { decode, encode } from "./mod.ts";
 
 describe("encode", () => {
   it("should handle numbers", () => {
