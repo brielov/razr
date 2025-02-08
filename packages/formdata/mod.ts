@@ -1,4 +1,15 @@
-import { isObject } from "../utils.ts";
+/**
+ * Checks if the given input is an object (but not `null` or an array).
+ * Ensures the input has a valid prototype chain for plain objects.
+ *
+ * @param {unknown} input - The value to check.
+ * @returns {input is { [key: string]: unknown }} - True if the input is a plain object, false otherwise.
+ */
+export function isObject(input: unknown): input is { [key: string]: unknown } {
+  if (input === null || input === undefined) return false; // Early exit for null/undefined.
+  const proto = Object.getPrototypeOf(input); // Get the prototype.
+  return proto === null || proto === Object.prototype; // Check if it's a plain object.
+}
 
 /**
  * Encodes an object into a `FormData` object for use in HTTP requests.
@@ -9,7 +20,7 @@ import { isObject } from "../utils.ts";
  * @returns {FormData} - A `FormData` instance with the serialized data.
  */
 export function encode<T extends { [key: string]: unknown }>(
-  data: T,
+  data: T
 ): FormData {
   if (!isObject(data)) {
     throw new Error("The provided data must be a plain object.");
@@ -105,7 +116,7 @@ export type DecodeArray = DecodeValue[];
  */
 export function decode(
   formData: FormData,
-  options: { emptyString?: "set null" | "set undefined" | "preserve" } = {},
+  options: { emptyString?: "set null" | "set undefined" | "preserve" } = {}
 ): DecodeObject {
   const { emptyString = "preserve" } = options; // Default behavior for empty strings.
   const result = Object.create(null) as DecodeObject; // Root object for decoding.
@@ -120,7 +131,7 @@ export function decode(
   function setValue(
     target: Record<string, unknown>,
     keys: readonly string[],
-    value: FormDataEntryValue,
+    value: FormDataEntryValue
   ): void {
     const len = keys.length;
     let current = target; // Pointer to the current level in the nested object.
