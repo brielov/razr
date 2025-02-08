@@ -80,7 +80,7 @@ export class SchemaError extends Error {
  * @returns A new schema instance.
  */
 function createSchema<TOutput = unknown, TInput = unknown>(
-  safeParse: (input: TInput) => Result<TOutput>
+  safeParse: (input: TInput) => Result<TOutput>,
 ): Schema<TOutput, TInput> {
   /**
    * Parses the input data and returns the validated output.
@@ -115,7 +115,7 @@ function createSchema<TOutput = unknown, TInput = unknown>(
  */
 function prependKeyToIssues(
   key: PropertyKey,
-  issues: readonly Issue[]
+  issues: readonly Issue[],
 ): Issue[] {
   return issues.map((issue) => ({
     ...issue,
@@ -168,7 +168,7 @@ export function boolean(message = "Expected boolean"): Schema<boolean> {
  */
 export function array<T extends Schema>(
   schema: T,
-  message = "Expected array"
+  message = "Expected array",
 ): Schema<InferOutput<T>[]> {
   return createSchema<InferOutput<T>[]>((input) => {
     if (!Array.isArray(input)) return { issues: [{ message }] };
@@ -218,7 +218,7 @@ export interface ObjectSchema<TOutput extends RawShape, TInput = unknown>
  */
 export function object<T extends RawShape>(
   shape: ObjectShape<T>,
-  message = "Expected object"
+  message = "Expected object",
 ): ObjectSchema<T> {
   return {
     shape,
@@ -244,7 +244,7 @@ export function object<T extends RawShape>(
  * @returns A schema that validates inputs that can be `null`, `undefined`, or match the provided schema.
  */
 export function maybe<T extends Schema>(
-  schema: T
+  schema: T,
 ): Schema<InferOutput<T> | undefined> {
   return createSchema<InferOutput<T> | undefined>((value) => {
     if (null === value || undefined === value) return { value: undefined };
@@ -261,7 +261,7 @@ export function maybe<T extends Schema>(
  */
 export function defaulted<T extends Schema>(
   schema: T,
-  defaultValue: InferOutput<T>
+  defaultValue: InferOutput<T>,
 ): Schema<InferOutput<T>> {
   return createSchema<InferOutput<T>>((value) => {
     if (null === value || undefined === value) return { value: defaultValue };
