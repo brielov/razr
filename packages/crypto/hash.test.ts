@@ -16,7 +16,7 @@ describe("hash", () => {
     const password = "mySecurePassword";
     const salt = new Uint8Array(15); // Invalid salt length
     expect(hash(password, salt)).rejects.toThrow(
-      "Salt must be at least 16 bytes long for security."
+      "Salt must be at least 16 bytes long for security.",
     );
   });
 });
