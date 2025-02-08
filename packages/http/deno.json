@@ -1,0 +1,9 @@
+{
+  "name": "@razr/http",
+  "version": "0.0.0",
+  "exports": "./mod.ts",
+  "license": "MIT",
+  "imports": {
+    "@standard-schema/spec": "jsr:@standard-schema/spec@^1.0.0"
+  }
+}
